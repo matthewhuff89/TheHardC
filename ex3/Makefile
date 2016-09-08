@@ -1,9 +1,10 @@
 CFLAGS=-Wall -g
+FILE=$(notdir $(shell pwd))
 
 all: clean 
-	make ex1
+	make $(FILE)
 
 clean: 
-	rm -f ex1
+	rm -f $(FILE)
 
 
