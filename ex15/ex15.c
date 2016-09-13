@@ -1,22 +1,40 @@
 #include <stdio.h>
 
+int index_print(int ages[], char *names[]){
+    int j = 0;
+    int print_count = sizeof(*ages) / sizeof(int);
+
+    printf("%d", print_count);
+
+    for(j = 0; ages[j] != '\0'; j++){
+        printf("%s has %d years alive.\n", names[j], ages[j]);
+    }
+    return 0;
+};
+
+int cur_print(int *cur_age, char **cur_name) {
+  int j = 0;  
+  for(j = 0; cur_age[j] != '\0'; j++) {
+    printf("%s is %d years old.\n", cur_name[j], cur_age[j]);
+  }  
+
+  return 0;
+}
+
 int main(int argc, char *argv[]) {
     // create two arrays that we care about
-    int *ages[] = { 23, 43, 12, 89, 2 };
+    int ages[] = { 23, 43, 12, 89, 2 };
     char *names[] = {
         "Alan", "Frank",
         "Mary", "John", "Lisa"
     };
-    printf("%p", &ages);
-    printf("%p", &names);
+    
     // safely get the size of ages
     int count = sizeof(ages) / sizeof(int);
     int i = 0;
 
     // first way using indexing
-    for(i = 0; i < count; i++) {
-        printf("%s has %d years alive.\n", names[i], ages[i]);
-    }
+    index_print(ages, names); 
 
     printf("---\n");
 
@@ -25,9 +43,7 @@ int main(int argc, char *argv[]) {
     char **cur_name = names;
      
     // second way using pointers
-    for(i = 0; i < count; i++) {
-        printf("%s is %d years old.\n", *(cur_name + i), *(cur_age + i));
-    }
+    cur_print(cur_age, cur_name); 
 
     printf("---\n");
 
@@ -43,6 +59,10 @@ int main(int argc, char *argv[]) {
            (cur_age - ages) < count; cur_name++, cur_age++) {
         printf("%s lived %d years so far.\n", *cur_name, *cur_age);
     }
+    // print out addresses for this exercises pointers
+    for(i = 0; i < count; i++) {
+        printf("address %d: age - %p, name - %p\n", i, &cur_age[i], &cur_name[i]);
+    }
     return 0;
 
 
@@ -50,7 +70,4 @@ int main(int argc, char *argv[]) {
 
 /* WHAT MATT THINKS A POINTER DOES:
  * A Pointer points to an address in memory where an array is storing other addresses to characters and integers
- *
- *
- *
  */
